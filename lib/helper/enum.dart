@@ -1,3 +1,5 @@
+///Levels of authentication, types of tweets and notifications etc.
+
 enum AuthStatus {
   NOT_DETERMINED,
   NOT_LOGGED_IN,

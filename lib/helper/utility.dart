@@ -15,6 +15,8 @@ final kAnalytics = FirebaseAnalytics();
 final DatabaseReference kDatabase = FirebaseDatabase.instance.reference();
 final kScreenloader = CustomLoader();
 
+/// Formats a date string
+
 String getPostTime2(String date) {
   if (date == null || date.isEmpty) {
     return '';
@@ -25,6 +27,9 @@ String getPostTime2(String date) {
   return dat;
 }
 
+
+/// Reformats date of birth from a given date string
+
 String getdob(String date) {
   if (date == null || date.isEmpty) {
     return '';
@@ -34,6 +39,8 @@ String getdob(String date) {
   return dat;
 }
 
+/// Figures out when a user joined when passed a date string
+
 String getJoiningDate(String date) {
   if (date == null || date.isEmpty) {
     return '';
@@ -42,6 +49,10 @@ String getJoiningDate(String date) {
   var dat = DateFormat("MMMM yyyy").format(dt);
   return 'Joined $dat';
 }
+
+/// Figures out how long a date was ago and rounds
+/// it to be readable as one number (i.e. 2 mins, 3 hrs, 3 days, now)
+/// Used for replies as well as chats
 
 String getChatTime(String date) {
   if (date == null || date.isEmpty) {
@@ -69,6 +80,9 @@ String getChatTime(String date) {
   }
   return msg;
 }
+
+/// Same for polls, figures out how long ago it was and/or if it's over yet
+/// NEED TO CHANGE need to remove this and usages
 
 String getPollTime(String date) {
   int hr, mm;
@@ -99,6 +113,8 @@ String getPollTime(String date) {
       ' min';
 }
 
+/// Formats URLs with https etc. depending on what it has already
+
 String getSocialLinks(String url) {
   if (url != null && url.isNotEmpty) {
     url = url.contains("https://www") || url.contains("http://www")
@@ -114,6 +130,8 @@ String getSocialLinks(String url) {
   return url;
 }
 
+/// Launches a URL from a string if canLaunch is true
+
 launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
@@ -121,6 +139,8 @@ launchURL(String url) async {
     cprint('Could not launch $url');
   }
 }
+
+/// Prints errors, events, and other data to the console. Not user-facing
 
 void cprint(dynamic data, {String errorIn, String event}) {
   if (errorIn != null) {
@@ -137,6 +157,8 @@ void cprint(dynamic data, {String errorIn, String event}) {
   }
 }
 
+///
+
 void logEvent(String event, {Map<String, dynamic> parameter}) {
   kReleaseMode
       ? kAnalytics.logEvent(name: event, parameters: parameter)
@@ -148,9 +170,13 @@ void debugLog(String log, {dynamic param = ""}) {
   print("[$time][Log]: $log, $param");
 }
 
+/// Lets you use share() in place of Share.share()
+
 void share(String message, {String subject}) {
   Share.share(message, subject: subject);
 }
+
+/// Searches text for formatted hashtags and returns a List<> of strings of tags found
 
 List<String> getHashTags(String text) {
   RegExp reg = RegExp(
@@ -166,6 +192,8 @@ List<String> getHashTags(String text) {
   return resultMatches;
 }
 
+/// Used for creating users (see createUser in authState.dart) by combining userId and displayName
+
 String getUserName({String name, String id}) {
   String userName = '';
   name = name.split(' ')[0];
@@ -173,6 +201,11 @@ String getUserName({String name, String id}) {
   userName = '@$name$id';
   return userName;
 }
+
+/// Used in signin.dart in _emailLogin()
+/// Determines if email format is valid, password is not empty, password is 8+ characters
+/// Returns false with an customSnackBar if there's an issue
+/// If everything is good, returns true
 
 bool validateCredentials(
     GlobalKey<ScaffoldState> _scaffoldKey, String email, String password) {
@@ -183,7 +216,7 @@ bool validateCredentials(
     customSnackBar(_scaffoldKey, 'Please enter password');
     return false;
   } else if (password.length < 8) {
-    customSnackBar(_scaffoldKey, 'Password must me 8 character long');
+    customSnackBar(_scaffoldKey, 'Password must be at least 8 characters long');
     return false;
   }
 
@@ -194,6 +227,12 @@ bool validateCredentials(
   }
   return true;
 }
+
+
+/// I don't fully understand regexp so I didn't touch this much
+/// This takes an email and compares it to a pattern to see if it matches a known email pattern
+/// The pattern is made from this raw string
+/// I think there's a better regexp out there for email confirmation but it's long as heck
 
 bool validateEmal(String email) {
   String p =

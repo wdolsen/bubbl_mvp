@@ -11,6 +11,8 @@ List<String> dummyProfilePicList = [
   'https://cdn6.f-cdn.com/contestentries/753244/20994643/57c189b564237_thumb900.jpg'
 ];
 
+/// Values for the asset compiler to look at for icons
+
 class AppIcon{
   static final int fabTweet = 0xf029;
   static final int messageEmpty = 0xf187;

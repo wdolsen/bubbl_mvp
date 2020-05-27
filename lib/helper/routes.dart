@@ -31,6 +31,7 @@ import '../page/profile/EditProfilePage.dart';
 import '../page/profile/profilePage.dart';
 import '../widgets/customWidgets.dart';
 
+
 class Routes{
   static dynamic route(){
       return {
@@ -44,12 +45,17 @@ class Routes{
     }
   }
 
+
+
   static Route onGenerateRoute(RouteSettings settings) {
      final List<String> pathElements = settings.name.split('/');
      if (pathElements[0] != '' || pathElements.length == 1) {
        return null;
      }
      switch (pathElements[1]) {
+
+       /// Setup for the page for composing tweets
+
       case "ComposeTweetPage": 
         bool isRetweet = false;
         bool isTweet = false;
@@ -63,9 +69,15 @@ class Routes{
           create: (_) => ComposeTweetState(),
           child: ComposeTweetPage(isRetweet:isRetweet, isTweet: isTweet),
         ));
+
+        /// Setup for the feed
+
       case "FeedPostDetail":
         var postId = pathElements[2];
           return SlideLeftRoute<bool>(builder:(BuildContext context)=> FeedPostDetail(postId: postId,),settings: RouteSettings(name:'FeedPostDetail'));
+
+          /// Find the profileId for a profilepage
+
         case "ProfilePage":
          String profileId;
          if(pathElements.length > 2){
@@ -105,6 +117,9 @@ class Routes{
       default:return onUnknownRoute(RouteSettings(name: '/Feature'));
      }
   }
+
+
+  /// Handles the default return in case something screws up and you get a weird route
 
    static Route onUnknownRoute(RouteSettings settings){
      return MaterialPageRoute(

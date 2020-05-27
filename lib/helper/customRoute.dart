@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_twitter_clone/helper/routes.dart';
 import 'package:flutter_twitter_clone/helper/utility.dart';
 
+/// Route generators. Might be broken so proceed with caution. Might need to replace .isInitialRoute
+
 class CustomRoute<T> extends MaterialPageRoute<T> {
   CustomRoute({WidgetBuilder builder, RouteSettings settings})
       : super(builder: builder, settings: settings);

@@ -1,5 +1,8 @@
 
 class Validator {
+
+  /// Determines if a string passed to it is numeric
+
   bool _isNumeric(String s) {
     for (int i = 0; i < s.length; i++) {
       if (double.tryParse(s[i]) != null) {
@@ -8,6 +11,9 @@ class Validator {
     }
     return false;
   }
+
+  /// NEED TO CHANGE
+  /// Unused so far. Maybe a typo
 
   String validateEmail(String s) {
     Pattern pattern =
@@ -20,6 +26,9 @@ class Validator {
     }
   }
 
+  /// Takes a string and returns null if it isn't a number or empty.
+  /// Otherwise returns an error string
+
   String validateName(String s) {
     if (_isNumeric(s)) {
       return 'Invalid Name!';
@@ -29,6 +38,9 @@ class Validator {
     }
     return null;
   }
+
+  /// Determines if a password is empty
+  /// Takes a string, returns null or an error string
 
   String validatePassword(String s) {
     if (s.isEmpty) {

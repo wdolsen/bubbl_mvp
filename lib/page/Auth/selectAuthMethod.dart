@@ -15,6 +15,8 @@ class WelcomePage extends StatefulWidget {
   _WelcomePageState createState() => _WelcomePageState();
 }
 
+/// Welcome page with account creation button
+
 class _WelcomePageState extends State<WelcomePage> {
   Widget _submitButton() {
     return Container(
@@ -37,6 +39,8 @@ class _WelcomePageState extends State<WelcomePage> {
       ),
     );
   }
+
+  /// Other UI for welcome screen, splash text, log in, bubbl logo
 
   Widget _body() {
     return SafeArea(
